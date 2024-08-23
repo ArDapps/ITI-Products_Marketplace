@@ -7,8 +7,6 @@ contract ITIMarketplace {
 
     using Counters for Counters.Counter;
    Counters.Counter public  productCount ;
-
-
 /** 
  * @title Product Item data
  * @dev Implements  the struct for the product Data
@@ -63,9 +61,6 @@ require(bytes(_imageHash).length >20,"Image Hash Shoudl Be more than 15 Characht
 require(_price>0,"Price shoudl be more than 0");
 require(msg.sender != address(0x0),"U shoudl Connect Wallt First ");
 
-//Ids Counter
-
-
     productCount.increment();
 
       uint id = productCount.current();
@@ -84,7 +79,6 @@ require(msg.sender != address(0x0),"U shoudl Connect Wallt First ");
     function purchasedProduct(uint _id) public payable {
 
         Product memory _product = products[_id]; 
-
         require(_product.id >0 && _product.id<=productCount.current(),"Invaild Product Id");
         require(!_product.purchased ,"Product Already Purchased");
         require(_product.creator !=msg.sender,"Cannot purchase your owne product");
@@ -96,8 +90,6 @@ require(msg.sender != address(0x0),"U shoudl Connect Wallt First ");
          _product.purchased = true;
 
          products[_id]=_product;
-
-
 
          emit ProductPurchased (_id,_product.name,_product.price,_product.description,_product.imageHash,_product.creator,msg.sender,true);
 
